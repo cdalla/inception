@@ -25,6 +25,6 @@ COPY tools/wpconf.sh /tmp/wpconf.sh
 
 EXPOSE 9000
 
-ENTRYPOINT ["bash", "/tmp/wpconf.sh"]
+ENTRYPOINT ["/tmp/wpconf.sh"]
 
 CMD ["php-fpm7.4", "-F"]

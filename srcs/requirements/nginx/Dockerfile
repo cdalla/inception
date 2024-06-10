@@ -22,4 +22,4 @@ COPY conf/nginx.conf /etc/nginx/conf.d/
 
 EXPOSE  433
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
