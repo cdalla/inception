@@ -14,6 +14,9 @@ dir:
 build:
 	docker compose -f  ${COMPOSE} build
 
+up:
+	docker compose -f ${COMPOSE} up
+
 down:
 	docker compose -f ${COMPOSE} down
 
