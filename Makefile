@@ -6,7 +6,7 @@ COMPOSE = ${SRCS}/docker-compose.yml
 
 include srcs/.env
 
-all: dir build
+all: dir build up
 
 dir:
 	mkdir -p ${WORDPRESS_VOLUME} ${MARIADB_VOLUME}
@@ -28,7 +28,7 @@ stop:
 
 clean: down
 	docker container prune -f
-	docker volume rm wordpress mariadb
+	docker volume rm srcs_wordpress srcs_mariadb
 	docker image prune -af
 
 fclean: clean

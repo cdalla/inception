@@ -1,6 +1,8 @@
-if [ ! -f "/var/www/wp-config.php" ]; then
+#!/bin/bash
 
-    echo "Wordepress configuration..."
+if [ ! -f /var/www/wp-config.php ]; then
+
+    echo "Wordpress configuration..."
 
     wp core download    --allow-root
 
@@ -26,4 +28,4 @@ fi
 
 echo "Wordpress installed"
 
-exec ${@}
+exec php-fpm7.4

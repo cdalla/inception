@@ -11,7 +11,7 @@ RUN apt update && \
     wget https://wordpress.org/wordpress-6.4.2.tar.gz -P /var/www && \
     cd /var/www && \
     tar -xzf wordpress-6.4.2.tar.gz && \
-    rm wordpress-6.4.2.tar.gz && \  
+    rm wordpress-6.4.2.tar.gz && \
     chown -R root:root /var/www/wordpress && \
     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
@@ -23,8 +23,8 @@ RUN mkdir /run/php
 
 COPY tools/wpconf.sh /tmp/wpconf.sh
 
+RUN chmod +x /tmp/wpconf.sh
+
 EXPOSE 9000
 
 ENTRYPOINT ["/tmp/wpconf.sh"]
-
-CMD ["php-fpm7.4", "-F"]
