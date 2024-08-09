@@ -9,13 +9,13 @@ include srcs/.env
 all: dir build up
 
 dir:
-	mkdir -p ${WORDPRESS_VOLUME} ${MARIADB_VOLUME}
+	mkdir ${MARIADB_VOLUME} ${WORDPRESS_VOLUME}
 
 build:
 	docker compose -f  ${COMPOSE} build
 
 up:
-	docker compose -f ${COMPOSE} up
+	docker compose -f ${COMPOSE} up -d
 
 down:
 	docker compose -f ${COMPOSE} down
@@ -26,14 +26,15 @@ start:
 stop:
 	docker compose -f ${COMPOSE} stop
 
-clean: down
-	docker container prune -f
-	docker volume rm srcs_wordpress srcs_mariadb
-	docker image prune -af
+clean:
+	docker compose -f ${COMPOSE} down -v --rmi all
 
-fclean: clean
-	sudo rm -rf ${MARIADB_VOLUME} ${WORDPRESS_VOLUME} ${VOLUMES}
+prune:
+	docker system prune
+
+fclean: clean prune
+	sudo rm -rf ${MARIADB_VOLUME} ${WORDPRESS_VOLUME}
 
 re: fclean all
 
-.PHONY: all dir build down start stop clean fclean re
+.PHONY: all dir build down start stop prune clean fclean re

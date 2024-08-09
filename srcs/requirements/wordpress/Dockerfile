@@ -1,25 +1,32 @@
 FROM debian:oldstable
 
-RUN apt update && \
-    apt upgrade && \
-    apt install -y \
-    wget \
+RUN apt-get update && apt upgrade
+
+#instal php
+RUN apt-get install -y \
     php7.4 \
-    php7.4-fpm \
-    php7.4-mysql \
-    mariadb-client && \
-    wget https://wordpress.org/wordpress-6.4.2.tar.gz -P /var/www && \
-    cd /var/www && \
-    tar -xzf wordpress-6.4.2.tar.gz && \
-    rm wordpress-6.4.2.tar.gz && \
-    chown -R root:root /var/www/wordpress && \
-    wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp
+    php-fpm \
+    php-mysql \
+    php-cli \
+    mariadb-client \
+    curl
 
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/
+# create directory for php
+RUN mkdir run/php
 
-RUN mkdir /run/php
+# create directory for website files
+RUN mkdir -p /var/www/html
+
+# change ownership of websit directory
+RUN chown -R www-data:www-data /var/www/html
+
+# download WP-cli
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
+# Change permission on cli and move in PATH
+RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 COPY tools/wpconf.sh /tmp/wpconf.sh
 
@@ -28,3 +35,5 @@ RUN chmod +x /tmp/wpconf.sh
 EXPOSE 9000
 
 ENTRYPOINT ["/tmp/wpconf.sh"]
+
+CMD ["usr/sbin/php-fpm7.4", "-F"]

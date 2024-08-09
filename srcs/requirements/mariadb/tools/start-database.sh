@@ -1,8 +1,14 @@
 #!/bin/bash
 
-set -e
+#set -e
 
-service mariadb start &&  mariadb -uroot < /home/start.sql
+service mariadb start && mariadb -u root < /home/start.sql
+
+
+
+
+
+
 #if the dir does not exist, database is not initialized
 #if [ ! -d "var/lib/mysql/$DATABASE_NAME" ]; then
 
@@ -23,4 +29,6 @@ service mariadb start &&  mariadb -uroot < /home/start.sql
 
 echo "MariaDB OK"
 
-exec mariadb
+mysqladmin -u root -p$MARIADB_ROOT_PASSW shutdown
+
+exec "$@"

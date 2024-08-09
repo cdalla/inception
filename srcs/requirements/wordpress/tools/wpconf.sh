@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -f /var/www/wp-config.php ]; then
+if [ ! -f ./wp-config.php ]; then
 
     echo "Wordpress configuration..."
 
@@ -10,17 +10,17 @@ if [ ! -f /var/www/wp-config.php ]; then
 					    --dbname=$DATABASE_NAME \
 					    --dbuser=$USERDB_NAME \
 					    --dbpass=$USERDB_PASSW \
-					    --dbhost=mariadb:3306 --skip-check --path='/var/www/wordpress'
+					    --dbhost=mariadb:3306
 
     wp core install     --allow-root \
                         --skip-email \
-                        --url="$DOMAIN_NAME" \
+                        --url=$DOMAIN_NAME \
                         --title="Inception" \
-                        --admin_name ="$ADMIN_WP" \
-                        --admin_password="$ADMIN_WP_PASSW"
+                        --admin_name =$ADMIN_WP \
+                        --admin_password=$ADMIN_WP_PASSW
 
     wp user create      --allow-root \
-                        "$USER_WP" \
+                        $USER_WP\
                         --skip-email \
                         --user_pass="$USER_WP_PASSW"
 
@@ -28,4 +28,4 @@ fi
 
 echo "Wordpress installed"
 
-exec php-fpm7.4
+exec "$@"
