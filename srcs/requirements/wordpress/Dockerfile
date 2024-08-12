@@ -17,7 +17,7 @@ RUN mkdir run/php
 # create directory for website files
 RUN mkdir -p /var/www/html
 
-# change ownership of websit directory
+# change ownership of website directory
 RUN chown -R www-data:www-data /var/www/html
 
 # download WP-cli
@@ -32,8 +32,10 @@ COPY tools/wpconf.sh /tmp/wpconf.sh
 
 RUN chmod +x /tmp/wpconf.sh
 
+WORKDIR /var/www/html
+
 EXPOSE 9000
 
-ENTRYPOINT ["/tmp/wpconf.sh"]
+#ENTRYPOINT ["/tmp/wpconf.sh"]
 
-CMD ["usr/sbin/php-fpm7.4", "-F"]
+#CMD ["usr/sbin/php-fpm7.4", "-F"]

@@ -6,12 +6,12 @@ COMPOSE = ${SRCS}/docker-compose.yml
 
 include srcs/.env
 
-all: dir build up
+all: build up
 
 dir:
 	mkdir ${MARIADB_VOLUME} ${WORDPRESS_VOLUME}
 
-build:
+build: dir
 	docker compose -f  ${COMPOSE} build
 
 up:

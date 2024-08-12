@@ -20,6 +20,8 @@ RUN openssl req -x509 -nodes -newkey rsa:2048 \
     # copy the conf file in our folder into the container
 COPY conf/nginx.conf /etc/nginx/conf.d/
 
-EXPOSE  433
+COPY conf/nginx.conf /etc/sites-available/nginx.conf
+
+EXPOSE  443
 
 CMD ["nginx", "-g", "daemon off;"]

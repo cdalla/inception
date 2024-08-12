@@ -20,7 +20,7 @@ if [ ! -f ./wp-config.php ]; then
                         --admin_password=$ADMIN_WP_PASSW
 
     wp user create      --allow-root \
-                        $USER_WP\
+                        $USER_WP \
                         --skip-email \
                         --user_pass="$USER_WP_PASSW"
 
