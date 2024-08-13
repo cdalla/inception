@@ -36,6 +36,6 @@ WORKDIR /var/www/html
 
 EXPOSE 9000
 
-#ENTRYPOINT ["/tmp/wpconf.sh"]
+ENTRYPOINT ["/tmp/wpconf.sh"]
 
-#CMD ["usr/sbin/php-fpm7.4", "-F"]
+CMD ["/usr/sbin/php-fpm7.4", "-F"]
