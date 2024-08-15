@@ -11,17 +11,20 @@ RUN apt-get install -y \
     mariadb-client \
     curl
 
-# create directory for php
+    # create directory for php
 RUN mkdir run/php
-
-# create directory for website files
-RUN mkdir -p /var/www/html
-
-# change ownership of website directory
-RUN chown -R www-data:www-data /var/www/html
+    
+    # create directory for website files
+RUN mkdir -p /var/www/html/wordpress
+    
+    # change ownership of website directory
+RUN chown -R www-data:www-data /var/www/html/wordpress
+    
+#RUN chown -R 755 /var/www/*
 
 # download WP-cli
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+  
 
 # Change permission on cli and move in PATH
 RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
@@ -32,7 +35,7 @@ COPY tools/wpconf.sh /tmp/wpconf.sh
 
 RUN chmod +x /tmp/wpconf.sh
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/wordpress
 
 EXPOSE 9000
 
