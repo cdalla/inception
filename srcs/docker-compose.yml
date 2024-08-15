@@ -47,13 +47,13 @@ volumes:
   wp: 
     driver: local
     driver_opts:
-      device: ${PWD}/${WORDPRESS_VOLUME}
+      device: ${HOME}/data/${WORDPRESS_VOLUME}
       type: none
       o: bind
   db:
     driver: local
     driver_opts:
-      device: ${PWD}/${MARIADB_VOLUME}
+      device: ${HOME}/data/${MARIADB_VOLUME}
       type: none
       o: bind
 

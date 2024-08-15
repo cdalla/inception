@@ -2,14 +2,17 @@ NAME = inception
 
 SRCS = ./srcs
 
-COMPOSE = ${SRCS}/docker-compose.yml 
+COMPOSE = ${SRCS}/docker-compose.yml
+
+VOL_DIR = ${HOME}/data
 
 include srcs/.env
 
 all: build up
 
 dir:
-	mkdir ${MARIADB_VOLUME} ${WORDPRESS_VOLUME}
+	mkdir ${HOME}/data
+	mkdir ${VOL_DIR}/${MARIADB_VOLUME} ${VOL_DIR}/${WORDPRESS_VOLUME}
 
 build: dir
 	docker compose -f  ${COMPOSE} build
@@ -33,7 +36,7 @@ prune:
 	docker system prune
 
 fclean: clean prune
-	sudo rm -rf ${MARIADB_VOLUME} ${WORDPRESS_VOLUME}
+	sudo rm -rf ${VOL_DIR}/${MARIADB_VOLUME} ${VOL_DIR}/${WORDPRESS_VOLUME} ${HOME}/data
 
 re: fclean all
 
