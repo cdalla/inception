@@ -19,12 +19,9 @@ RUN mkdir -p /var/www/html/wordpress
     
     # change ownership of website directory
 RUN chown -R www-data:www-data /var/www/html/wordpress
-    
-#RUN chown -R 755 /var/www/*
 
 # download WP-cli
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-  
 
 # Change permission on cli and move in PATH
 RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
